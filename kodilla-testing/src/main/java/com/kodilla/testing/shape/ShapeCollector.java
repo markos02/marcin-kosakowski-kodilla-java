@@ -29,6 +29,7 @@ public class ShapeCollector {
         }
 
         String strFiguresList = figuresList.stream().collect(Collectors.joining(", "));
+        //String strFiguresList = shapeList.stream().map(String::).collect(Collectors.joining(", "));
 
         return strFiguresList;
     }
