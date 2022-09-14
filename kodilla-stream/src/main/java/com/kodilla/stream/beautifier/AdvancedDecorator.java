@@ -10,8 +10,4 @@ public class AdvancedDecorator {
         System.out.println("* " + string + " *");
         System.out.println(frame);
     }
-
-    public static void addSpaces(String string) {
-        System.out.println(string.replace("", " ").trim().toUpperCase());
-    }
 }

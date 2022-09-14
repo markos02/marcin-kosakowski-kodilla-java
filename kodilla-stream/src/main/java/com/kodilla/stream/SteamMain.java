@@ -37,6 +37,6 @@ public class SteamMain {
         poemBeautifier.beautify(textToBeautify, s -> System.out.println(s.toUpperCase()));
         poemBeautifier.beautify(textToBeautify, s -> System.out.println("ABC " + s + " ABC"));
         poemBeautifier.beautify(textToBeautify, AdvancedDecorator::frame);
-        poemBeautifier.beautify(textToBeautify, AdvancedDecorator::addSpaces);
+        poemBeautifier.beautify(textToBeautify, s -> System.out.println((s.replace(""," ").trim()).toUpperCase()));
     }
 }
