@@ -2,6 +2,7 @@ package com.kodilla.stream;
 
 import com.kodilla.stream.beautifier.AdvancedDecorator;
 import com.kodilla.stream.beautifier.PoemBeautifier;
+import com.kodilla.stream.iterate.NumbersGenerator;
 import com.kodilla.stream.lambda.*;
 import com.kodilla.stream.reference.FunctionalCalculator;
 
@@ -38,5 +39,8 @@ public class SteamMain {
         poemBeautifier.beautify(textToBeautify, s -> System.out.println("ABC " + s + " ABC"));
         poemBeautifier.beautify(textToBeautify, AdvancedDecorator::frame);
         poemBeautifier.beautify(textToBeautify, s -> System.out.println((s.replace(""," ").trim()).toUpperCase()));
+
+        System.out.println("\nUsing Stream to generate even numbers from 1 to 20");
+        NumbersGenerator.generateEven(20);
     }
 }
