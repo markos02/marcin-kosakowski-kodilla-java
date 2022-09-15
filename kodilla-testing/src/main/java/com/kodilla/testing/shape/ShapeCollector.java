@@ -22,16 +22,11 @@ public class ShapeCollector {
 
     public String showFigures() {
 
-        List<String> figuresList = new ArrayList<>();
+        String result = getShapeList().stream()
+                .map(Shape::getShapeName)
+                .collect(Collectors.joining(", "));
 
-        for (Shape shape : shapeList) {
-            figuresList.add(shape.getShapeName());
-        }
-
-        String strFiguresList = figuresList.stream().collect(Collectors.joining(", "));
-        //String strFiguresList = shapeList.stream().map(String::).collect(Collectors.joining(", "));
-
-        return strFiguresList;
+        return result;
     }
 
     public List<Shape> getShapeList() {
