@@ -1,4 +1,5 @@
 package com.kodilla.testing.weather.mock;
+
 import com.kodilla.testing.weather.stub.Temperatures;
 import com.kodilla.testing.weather.stub.WeatherForecast;
 import org.junit.jupiter.api.Assertions;
@@ -18,6 +19,7 @@ public class WeatherForecastTestSuite {
 
     @Mock
     private static Temperatures temperaturesMock;
+    private WeatherForecast weatherForecast;
 
     @BeforeEach
     public void beforeEach() {
@@ -28,12 +30,13 @@ public class WeatherForecastTestSuite {
         temperaturesMap.put("Warszawa", 25.2);
         temperaturesMap.put("Gdansk", 26.1);
         when(temperaturesMock.getTemperatures()).thenReturn(temperaturesMap);
+        weatherForecast = new WeatherForecast(temperaturesMock);
     }
 
     @Test
     void testCalculateForecastWithMock() {
         //Given
-        WeatherForecast weatherForecast = new WeatherForecast(temperaturesMock);
+        //WeatherForecast weatherForecast = new WeatherForecast(temperaturesMock);
 
         //When
         int quantityOfSensors = weatherForecast.calculateForecast().size();
@@ -45,7 +48,7 @@ public class WeatherForecastTestSuite {
     @Test
     void testAverageTemperatureCalculationWithMock() {
         //Given
-         WeatherForecast weatherForecast = new WeatherForecast(temperaturesMock);
+        WeatherForecast weatherForecast = new WeatherForecast(temperaturesMock);
 
         //When
         double retrievedAverage = weatherForecast.calculateAverageTemperature();
