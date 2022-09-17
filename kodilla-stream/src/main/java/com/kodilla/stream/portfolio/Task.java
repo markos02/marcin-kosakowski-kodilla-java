@@ -11,6 +11,7 @@ public final class Task {
     private final LocalDate created;
     private final LocalDate deadline;
 
+
     public Task(String title, String description, User assignedUser, User creator, LocalDate created, LocalDate deadline) {
         this.title = title;
         this.description = description;

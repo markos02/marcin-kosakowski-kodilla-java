@@ -16,6 +16,7 @@ public final class Board {
         return new ArrayList<>(taskLists);
     }
 
+
     public String getName() {
         return name;
     }
