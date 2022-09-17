@@ -27,7 +27,6 @@ public final class Board {
                 "taskLists=" + taskLists + "\n" +
                 '}';
     }
-
     public void addTaskList(TaskList taskList) {
         taskLists.add(taskList);
     }

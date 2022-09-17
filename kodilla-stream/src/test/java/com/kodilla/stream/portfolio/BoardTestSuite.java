@@ -12,7 +12,6 @@ import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTestSuite {
-
     @Test
     void testAddTaskList() {
         //Given
