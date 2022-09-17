@@ -7,6 +7,7 @@ import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -105,6 +106,23 @@ public class BoardTestSuite {
         assertEquals(10, averageWorkingOnTasksSum / averageWorkingOnTasksQuantity);
     }
 
+    @Test
+    void testAddTaskListAverageWorkingOnTaskWithAverage() {
+        //Given
+        Board project = prepareTestData();
+
+        //When
+        OptionalDouble averageWorkingOnTasks = project.getTaskLists().stream()
+                .filter(tl -> tl.getName().equals("In progress"))
+                .flatMap(taskList -> taskList.getTasks().stream())
+                .mapToDouble(t -> ChronoUnit.DAYS.between(t.getCreated(), LocalDate.now()))
+                .average();
+
+        double result = averageWorkingOnTasks.getAsDouble();
+
+        //Then
+        assertEquals(10, result);
+    }
     private Board prepareTestData() {
         //users
         User user1 = new User("developer1", "John Smith");
