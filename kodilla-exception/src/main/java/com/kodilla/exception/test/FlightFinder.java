@@ -20,31 +20,30 @@ public class FlightFinder {
         airportList.put("Przemyśl", false);
         airportList.put("Zakopane", false);
 
-        if (!airportList.containsKey(flight.getDepartureAirport())) {
-            System.out.println("Departure airport doesn't exist");
-            throw new RouteNotFoundException();
-        } else {
-            if (!airportList.get(flight.getDepartureAirport())) {
+        try {
+            if (airportList.get(flight.getDepartureAirport())) {
+                if (airportList.get(flight.getArrivalAirport())) {
+                    System.out.println("You can fly from " + flight.getDepartureAirport() + " to " + flight.getArrivalAirport());
+                } else {
+                    System.out.println("You cannot fly to " + flight.getArrivalAirport());
+                    throw new RouteNotFoundException();
+                }
+            } else {
                 System.out.println("You cannot fly from " + flight.getDepartureAirport());
                 throw new RouteNotFoundException();
             }
-        }
-
-        if (!airportList.containsKey(flight.getArrivalAirport())) {
-            System.out.println("Arrival airport doesn't exist");
-            throw new RouteNotFoundException();
-        } else {
-            if (!airportList.get(flight.getArrivalAirport())) {
-                System.out.println("You cannot fly to " + flight.getArrivalAirport());
-                throw new RouteNotFoundException();
+        } catch (NullPointerException e) {
+            if (airportList.get(flight.getDepartureAirport()) == null) {
+                System.out.println("Departure airport (" + flight.getDepartureAirport() + ") does not exist");
+            } else {
+                System.out.println("Arrival airport (" + flight.getArrivalAirport() + ") does not exist");
             }
+            throw new RouteNotFoundException();
         }
-
-        System.out.println("You can fly from " + flight.getDepartureAirport() + " to " + flight.getArrivalAirport());
 
     }
 
-    public static void main(String[] args) throws RouteNotFoundException {
+    public static void main(String[] args) {
 
         FlightFinder flightFinder = new FlightFinder();
         List<Flight> flightList = new ArrayList<>();
@@ -65,7 +64,5 @@ public class FlightFinder {
                 System.out.println("Exception thrown");
             }
         }
-
     }
-
 }
