@@ -35,6 +35,7 @@ public class RpsGame {
 
         while (!quitGame) {
             playRound();
+
         }
 
         System.out.println("\nPress x to end the game\n" +

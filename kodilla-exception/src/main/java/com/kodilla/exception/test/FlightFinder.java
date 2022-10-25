@@ -20,27 +20,22 @@ public class FlightFinder {
         airportList.put("Przemyśl", false);
         airportList.put("Zakopane", false);
 
-        try {
-            if (airportList.get(flight.getDepartureAirport())) {
-                if (airportList.get(flight.getArrivalAirport())) {
-                    System.out.println("You can fly from " + flight.getDepartureAirport() + " to " + flight.getArrivalAirport());
-                } else {
-                    System.out.println("You cannot fly to " + flight.getArrivalAirport());
-                    throw new RouteNotFoundException();
-                }
-            } else {
-                System.out.println("You cannot fly from " + flight.getDepartureAirport());
-                throw new RouteNotFoundException();
-            }
-        } catch (NullPointerException e) {
-            if (airportList.get(flight.getDepartureAirport()) == null) {
-                System.out.println("Departure airport (" + flight.getDepartureAirport() + ") does not exist");
-            } else {
-                System.out.println("Arrival airport (" + flight.getArrivalAirport() + ") does not exist");
-            }
+
+        String departureAirport = flight.getDepartureAirport();
+        String arrivalAirport = flight.getArrivalAirport();
+
+        Boolean departureAvailable = airportList.get(departureAirport);
+        Boolean arrivalAvailable = airportList.get(arrivalAirport);
+
+        if (departureAvailable == null || arrivalAvailable == null) {
             throw new RouteNotFoundException();
         }
 
+        if (departureAvailable && arrivalAvailable) {
+            System.out.println("You can fly from " + departureAirport + " to " + arrivalAirport);
+        } else {
+            System.out.println("You cant fly from " + departureAirport + " to " + arrivalAirport);
+        }
     }
 
     public static void main(String[] args) {
