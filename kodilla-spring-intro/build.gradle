@@ -22,8 +22,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'com.example.kodillagoodpatterns'
-    mainClass = 'com.example.kodillagoodpatterns.HelloApplication'
+    mainModule = 'com.example.kodillaspringintro'
+    mainClass = 'com.example.kodillaspringintro.HelloApplication'
 }
 
 dependencies {
