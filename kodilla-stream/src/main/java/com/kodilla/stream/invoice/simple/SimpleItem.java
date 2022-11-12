@@ -19,6 +19,7 @@ public final class SimpleItem {
     }
 
     public double getValue() {
+        System.out.println(product.getProductName());
         return quantity * product.getProductPrice();
     }
 }
