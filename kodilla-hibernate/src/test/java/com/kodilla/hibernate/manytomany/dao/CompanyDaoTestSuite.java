@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
@@ -13,6 +16,9 @@ public class CompanyDaoTestSuite {
 
     @Autowired
     private CompanyDao companyDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -57,6 +63,63 @@ public class CompanyDaoTestSuite {
             companyDao.deleteById(greyMatterId);
         } catch (Exception e) {
             //do nothing
+        }
+    }
+
+    @Test
+    void testNamedQueries() {
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+
+        Company softwareMachine = new Company("Software Machine");
+        Company dataMaesters = new Company("Data Maesters");
+        Company greyMatter = new Company("Grey Matter");
+
+        softwareMachine.getEmployees().add(johnSmith);
+        dataMaesters.getEmployees().add(stephanieClarckson);
+        dataMaesters.getEmployees().add(lindaKovalsky);
+        greyMatter.getEmployees().add(johnSmith);
+        greyMatter.getEmployees().add(lindaKovalsky);
+
+        johnSmith.getCompanies().add(softwareMachine);
+        johnSmith.getCompanies().add(greyMatter);
+        stephanieClarckson.getCompanies().add(dataMaesters);
+        lindaKovalsky.getCompanies().add(dataMaesters);
+        lindaKovalsky.getCompanies().add(greyMatter);
+
+        companyDao.save(softwareMachine);
+        int softwareMachineId = softwareMachine.getId();
+        companyDao.save(dataMaesters);
+        int dataMaestersId = dataMaesters.getId();
+        companyDao.save(greyMatter);
+        int greyMatterId = greyMatter.getId();
+
+        //When
+        List<Employee> lastnameSmith = employeeDao.retrieveEmployeesWithSpecifiedLastname("Smith");
+        List<Employee> lastnameClarckson = employeeDao.retrieveEmployeesWithSpecifiedLastname("Clarckson");
+        List<Employee> lastnameXXX = employeeDao.retrieveEmployeesWithSpecifiedLastname("XXX");
+
+        List<Company> startsWithSof = companyDao.retrieveCompanyWthSpecifiedName("Sof");
+        List<Company> startsWithDat = companyDao.retrieveCompanyWthSpecifiedName("Dat");
+
+        //Then
+        try {
+            assertEquals(1, lastnameSmith.size());
+            assertEquals(1, lastnameClarckson.size());
+            assertEquals(0, lastnameXXX.size());
+            assertEquals(1, startsWithSof.size());
+            assertEquals(1, startsWithDat.size());
+        } finally {
+            //CleanUp
+            try {
+                companyDao.deleteById(softwareMachineId);
+                companyDao.deleteById(dataMaestersId);
+                companyDao.deleteById(greyMatterId);
+            } catch (Exception e) {
+                //do nothing
+            }
         }
     }
 }
