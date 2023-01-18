@@ -1,6 +1,5 @@
 package com.kodilla.hibernate.manytomany;
 
-import com.kodilla.hibernate.task.Task;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
